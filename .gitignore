@@ -1,6 +1,6 @@
 *.class
 
-src/main/java/pl/com/rest/database/DatabaseConstant.java
+.src/main/java/pl/com/rest/database/DatabaseConstant.java
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
