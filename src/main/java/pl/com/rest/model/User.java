@@ -16,6 +16,9 @@ public class User {
         this.id = id;
         this.name = name;
     }
+    public User(){
+
+    }
 
     public String getId() {
         return id;
