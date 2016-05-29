@@ -20,8 +20,6 @@ import static pl.com.rest.database.DatabaseConstant.*;
  */
 public class MongoDB{
 
-
-
     private static Datastore datastore;
 
     public static Datastore getDatastore() {
@@ -71,6 +69,10 @@ public class MongoDB{
         } catch (IllegalArgumentException e) {
             return null;
         }
+    }
+
+    public void deleteUser(String id){
+        getDatastore().delete(UserEntityMongo.class,new ObjectId(id));
     }
     public User createUser(User user) {
         UserEntityMongo userEntity = buildUserEntity(user,false);

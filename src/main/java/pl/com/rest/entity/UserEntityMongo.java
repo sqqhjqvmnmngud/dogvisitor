@@ -27,12 +27,12 @@ public class UserEntityMongo {
 
     @Indexed
     private boolean active = false;
-
-    //Lifecycle methods -- Pre/PostLoad, Pre/PostPersist...
-    @PostLoad
-    private void postLoad(DBObject dbObj) {
-        LOGGER.info("postLoad: {}", dbObj);
-    }
+//
+//    //Lifecycle methods -- Pre/PostLoad, Pre/PostPersist...
+//    @PostLoad
+//    private void postLoad(DBObject dbObj) {
+//        LOGGER.info("postLoad: {}", dbObj);
+//    }
 
     public UserEntityMongo() {
     }

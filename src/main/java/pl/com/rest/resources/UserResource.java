@@ -27,24 +27,10 @@ public class UserResource {
     private static final MongoDB database = new MongoDB();
 
 
-    //private UserRepository userRepository;
-
     @GET
     public Collection<User> getUsers(){
         return database.getUsers();
     }
-
-   /* @POST
-    public ResponseEntity createUser(@RequestBody User user,HttpServletRequest request) {
-        User dbUser = new User(
-                "",
-                user.getName()
-        );
-        User createdUser = database.createUser(dbUser);
-
-        return ResponseEntity.created(URI.create(request.getPathInfo()+"/"+createdUser.getId())).body(createdUser);
-
-    }*/
 
 
     @POST
@@ -53,9 +39,25 @@ public class UserResource {
                 "",
                 user.getName()
         );
-        User createdUser = database.createUser(dbUser);
 
         return Response.ok(database.createUser(dbUser)).build();
+
+    }
+    @GET
+    @Path("/{userId}")
+    public User getUser(@PathParam("userId") String userId){
+        User user = database.getUser(userId);
+        //TODO EXCEPTIONS
+
+        return user;
+    }
+
+
+    @DELETE
+    @Path("/{userId}")
+    public void deleteUser(@PathParam("userId") String userId){
+        database.deleteUser(userId);
+        //TODO EXCEPTIONS
 
     }
 
