@@ -19,7 +19,7 @@ public class UserEntityMongo {
     @Id
     ObjectId id;
 
-    @Property("first")
+    @Property("name")
     private String name;
 
     @Property("favouritePlaces")

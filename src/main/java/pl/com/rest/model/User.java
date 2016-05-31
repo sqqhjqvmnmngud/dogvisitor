@@ -1,5 +1,8 @@
 package pl.com.rest.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,8 @@ import java.util.List;
 public class User {
 
     private String id;
+    @NotBlank
+    @Size(min = 1 , max = 40)
     private String name;
     private List<Place> favouritePlaces = new ArrayList<>();
 

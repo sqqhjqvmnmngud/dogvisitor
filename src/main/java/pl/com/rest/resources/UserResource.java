@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.com.rest.database.MongoDB;
+import pl.com.rest.database.UserDatabase;
 import pl.com.rest.model.User;
 
 
@@ -24,7 +25,8 @@ import java.util.Collection;
 public class UserResource {
 
 
-    private static final MongoDB database = new MongoDB();
+
+    private static final UserDatabase database = new UserDatabase();
 
 
     @GET
@@ -47,6 +49,9 @@ public class UserResource {
     @Path("/{userId}")
     public User getUser(@PathParam("userId") String userId){
         User user = database.getUser(userId);
+        if (user == null){
+            throw new NotFoundException();
+        }
         //TODO EXCEPTIONS
 
         return user;
