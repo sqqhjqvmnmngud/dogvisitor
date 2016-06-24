@@ -37,7 +37,7 @@ public class UserResource {
 
 
     @POST
-    public Response createUser( User user) {
+    public Response createUser(@Valid User user) {
         User dbUser = new User(
                 "",
                 user.getName(),

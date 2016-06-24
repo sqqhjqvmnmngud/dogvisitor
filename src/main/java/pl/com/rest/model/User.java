@@ -1,7 +1,9 @@
 package pl.com.rest.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -13,12 +15,17 @@ import java.util.List;
 public class User {
 
     private String id;
+
     @NotNull
     @Size(min = 1 , max = 40)
     private String name;
+
     @NotNull
+    @Email
     private String email;
+
     @NotNull
+    @Min(4)
     private String password;
     private List<Place> favouritePlaces = new ArrayList<>();
     private List<Dog> dogs = new ArrayList<>();

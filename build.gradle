@@ -30,7 +30,7 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-jersey'
     compile 'org.mongodb.morphia:morphia:1.1.1'
 	// https://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-bean-validation
-	compile group: 'org.glassfish.jersey.ext', name: 'jersey-bean-validation', version: '2.6'
+	compile("org.hibernate:hibernate-validator")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

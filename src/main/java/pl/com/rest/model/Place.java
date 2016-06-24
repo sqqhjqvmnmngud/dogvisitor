@@ -8,10 +8,13 @@ import javax.validation.constraints.NotNull;
 public class Place {
     @NotNull
     private String id;
+
     @NotNull
     private String name;
+
     @NotNull
     private String address;
+    
     @NotNull
     private String city;
     private String otherInformation;

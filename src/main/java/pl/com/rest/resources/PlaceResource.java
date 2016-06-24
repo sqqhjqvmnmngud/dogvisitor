@@ -2,8 +2,10 @@ package pl.com.rest.resources;
 
 
 import pl.com.rest.database.PlaceDatabase;
+import pl.com.rest.exception.AppException;
 import pl.com.rest.model.Place;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,7 +28,7 @@ public class PlaceResource {
     }
 
     @POST
-    public Response createPlace(Place place){
+    public Response createPlace(@Valid Place place){
         Place dbPlace = new Place(
                 "",
                 place.getName(),
@@ -37,6 +39,21 @@ public class PlaceResource {
         );
         return Response.ok(database.createPlace(dbPlace)).build();
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{placeId}")
+    public Place getPlace(@PathParam("placeId") String placeId) throws AppException {
+        Place place = database.getPlace(placeId);
+        if (place == null){
+            throw new AppException(404, 990, "Place with id " + placeId + " does not exist", null, null);
+        }
+        return place;
+    }
 
 
+    @DELETE
+    @Path("/{placeId}")
+    public void deletePlace(@PathParam("placeId") String placeId) {
+        database.deletePlace(placeId);
+    }
 }
