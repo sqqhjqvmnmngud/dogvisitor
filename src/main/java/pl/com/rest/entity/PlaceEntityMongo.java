@@ -28,8 +28,7 @@ public class PlaceEntityMongo {
     @Property("otherInformation")
     private String otherInformation;
 
-    @Property("ownerId")
-    private String ownerId;
+
 
 
     @Indexed
@@ -39,12 +38,11 @@ public class PlaceEntityMongo {
     public PlaceEntityMongo() {
     }
 
-    public PlaceEntityMongo(String name, String address, String city, String otherInformation, String ownerId, boolean active) {
+    public PlaceEntityMongo(String name, String address, String city, String otherInformation, boolean active) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.otherInformation = otherInformation;
-        this.ownerId = ownerId;
         this.active = active;
     }
 
@@ -88,13 +86,6 @@ public class PlaceEntityMongo {
         this.otherInformation = otherInformation;
     }
 
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public boolean isActive() {
         return active;

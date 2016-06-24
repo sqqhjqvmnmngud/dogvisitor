@@ -47,22 +47,22 @@ public class PlaceDatabase extends MongoDB {
 
     }
 
-    public void deleteUser(String id){
+    public void deletePlace(String id){
         getDatastore().delete(PlaceEntityMongo.class, new ObjectId(id));
     }
 
 
     private Place buildPlaceResponse(PlaceEntityMongo placeEntity, Object id){
-        return new Place(id.toString(), placeEntity.getName(), placeEntity.getAddress(), placeEntity.getCity(), placeEntity.getOtherInformation(), placeEntity.getOwnerId());
+        return new Place(id.toString(), placeEntity.getName(), placeEntity.getAddress(), placeEntity.getCity(), placeEntity.getOtherInformation());
 
     }
     private Place buildPlaceResponse(PlaceEntityMongo placeEntity){
-        return new Place(placeEntity.getId().toString(), placeEntity.getName(),placeEntity.getAddress(), placeEntity.getCity(), placeEntity.getOtherInformation(), placeEntity.getOwnerId());
+        return new Place(placeEntity.getId().toString(), placeEntity.getName(),placeEntity.getAddress(), placeEntity.getCity(), placeEntity.getOtherInformation());
 
     }
 
     private PlaceEntityMongo buildPlaceEntity(Place place, boolean active){
-        return new PlaceEntityMongo(place.getName(), place.getAddress(), place.getCity(), place.getOtherInformation(), place.getOwnerId(), active);
+        return new PlaceEntityMongo(place.getName(), place.getAddress(), place.getCity(), place.getOtherInformation(),  active);
     }
 
 

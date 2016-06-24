@@ -32,9 +32,7 @@ public class PlaceResource {
                 place.getName(),
                 place.getAddress(),
                 place.getCity(),
-                place.getOtherInformation(),
-                place.getOwnerId()
-
+                place.getOtherInformation()
 
         );
         return Response.ok(database.createPlace(dbPlace)).build();

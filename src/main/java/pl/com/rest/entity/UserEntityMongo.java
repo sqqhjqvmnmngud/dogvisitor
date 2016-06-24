@@ -5,8 +5,10 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.com.rest.model.Dog;
 import pl.com.rest.model.Place;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,22 +27,28 @@ public class UserEntityMongo {
     @Property("favouritePlaces")
     private List<Place> favouritePlaces;
 
-    @Indexed
+    @Property("email")
+    private String email;
+
+    @Property("password")
+    private String password;
+
+    @Property("dogs")
+    private List<Dog> dogs ;
     private boolean active = false;
-//
-//    //Lifecycle methods -- Pre/PostLoad, Pre/PostPersist...
-//    @PostLoad
-//    private void postLoad(DBObject dbObj) {
-//        LOGGER.info("postLoad: {}", dbObj);
-//    }
+
 
     public UserEntityMongo() {
     }
 
-    public UserEntityMongo(String name, boolean active){
+    public UserEntityMongo(String name, String email, String password, boolean active){
         this.name = name;
+        this.email = email;
+        this.password = password;
         this.active = active;
+
     }
+
 
     public ObjectId getId() {
         return id;
@@ -56,5 +64,17 @@ public class UserEntityMongo {
 
     public boolean isActive() {
         return active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public List<Dog> getDogs() {
+        return dogs;
     }
 }

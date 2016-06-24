@@ -1,15 +1,21 @@
 package pl.com.rest.model;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by wewe on 10.05.16.
  */
 public class Place {
+    @NotNull
     private String id;
+    @NotNull
     private String name;
+    @NotNull
     private String address;
+    @NotNull
     private String city;
     private String otherInformation;
-    private String ownerId;
+
 
     public String getId() {
         return id;
@@ -51,23 +57,17 @@ public class Place {
         this.otherInformation = otherInformation;
     }
 
-    public String getOwnerId() {
-        return ownerId;
-    }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public Place() {
     }
 
-    public Place(String id, String name, String address, String city, String otherInformation, String ownerId) {
+    public Place(String id, String name, String address, String city, String otherInformation) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.city = city;
         this.otherInformation = otherInformation;
-        this.ownerId = ownerId;
+
     }
 }

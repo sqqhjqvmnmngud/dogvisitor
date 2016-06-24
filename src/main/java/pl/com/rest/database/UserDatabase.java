@@ -51,16 +51,16 @@ public class UserDatabase extends MongoDB {
     }
 
     private User buildUserResponse(UserEntityMongo userEntity, Object id){
-        return new User(id.toString(), userEntity.getName());
+        return new User(id.toString(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword());
 
     }
     private User buildUserResponse(UserEntityMongo userEntity){
-        return new User(userEntity.getId().toString(), userEntity.getName());
+        return new User(userEntity.getId().toString(), userEntity.getName(),userEntity.getEmail(), userEntity.getPassword());
 
     }
 
     private UserEntityMongo buildUserEntity(User user, boolean active){
-        return new UserEntityMongo(user.getName(),active);
+        return new UserEntityMongo(user.getName(), user.getEmail(), user.getPassword(), active);
     }
 
 }

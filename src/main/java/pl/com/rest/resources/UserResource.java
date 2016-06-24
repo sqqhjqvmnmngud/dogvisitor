@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.com.rest.database.MongoDB;
 import pl.com.rest.database.UserDatabase;
+import pl.com.rest.exception.AppException;
 import pl.com.rest.model.User;
 
 
@@ -39,24 +40,34 @@ public class UserResource {
     public Response createUser( User user) {
         User dbUser = new User(
                 "",
-                user.getName()
+                user.getName(),
+                user.getEmail(),
+                user.getPassword()
         );
 
         return Response.ok(database.createUser(dbUser)).build();
 
     }
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{userId}")
-    public User getUser(@PathParam("userId") String userId){
+    public User getUser(@PathParam("userId") String userId) throws AppException {
         User user = database.getUser(userId);
         if (user == null){
-            throw new NotFoundException();
+            throw new AppException(404, 990, "User with id " + userId + " does not exist", null, null);
         }
-        //TODO EXCEPTIONS
-
-        return user;
+            return user;
     }
-
+//    @PUT
+//    @Path("/{userId}")
+//    public User updateUser(@PathParam("userId") String userId, User user){
+//        User dbuser = database.getUser(userId);
+//        if (dbuser == null){
+//            throw new NotFoundException();
+//        }
+//
+//        return user;
+//    }
 
     @DELETE
     @Path("/{userId}")

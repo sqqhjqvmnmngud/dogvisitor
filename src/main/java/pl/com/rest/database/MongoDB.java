@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.Morphia;
+import pl.com.rest.entity.PlaceEntityMongo;
 import pl.com.rest.entity.UserEntityMongo;
 import pl.com.rest.model.User;
 
@@ -25,7 +26,7 @@ public class MongoDB{
     public static Datastore getDatastore() {
         if (datastore == null) {
             Morphia morphia = new Morphia();
-            morphia.map(UserEntityMongo.class);
+            morphia.map(UserEntityMongo.class).map(PlaceEntityMongo.class);
             MongoClient client = createMongoClient();
             datastore = morphia.createDatastore(client, DATABASE);
         }
