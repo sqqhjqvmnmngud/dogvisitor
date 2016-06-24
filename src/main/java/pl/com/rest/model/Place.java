@@ -14,7 +14,7 @@ public class Place {
 
     @NotNull
     private String address;
-    
+
     @NotNull
     private String city;
     private String otherInformation;

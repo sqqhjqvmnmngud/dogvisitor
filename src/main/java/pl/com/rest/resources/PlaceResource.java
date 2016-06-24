@@ -4,12 +4,14 @@ package pl.com.rest.resources;
 import pl.com.rest.database.PlaceDatabase;
 import pl.com.rest.exception.AppException;
 import pl.com.rest.model.Place;
+import pl.com.rest.model.User;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by wewe on 29.05.16.
@@ -56,4 +58,12 @@ public class PlaceResource {
     public void deletePlace(@PathParam("placeId") String placeId) {
         database.deletePlace(placeId);
     }
+
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/{placeId}/visitors")
+//    public List<User> getVisitors(@PathParam("placeId") String placeId){
+//
+//    }
+
 }
