@@ -58,16 +58,17 @@ public class UserResource {
         }
             return user;
     }
-//    @PUT
-//    @Path("/{userId}")
-//    public User updateUser(@PathParam("userId") String userId, User user){
-//        User dbuser = database.getUser(userId);
-//        if (dbuser == null){
-//            throw new NotFoundException();
-//        }
-//
-//        return user;
-//    }
+    @PUT
+    @Path("/{userId}")
+    public User updateUser(@PathParam("userId") String userId, User user){
+        User dbuser = database.getUser(userId);
+        if (dbuser == null){
+            throw new NotFoundException();
+        }
+        user.setId(dbuser.getId());
+        database.updateUser(user);
+        return user;
+    }
 
     @DELETE
     @Path("/{userId}")

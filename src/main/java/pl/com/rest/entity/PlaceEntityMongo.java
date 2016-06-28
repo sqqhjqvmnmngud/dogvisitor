@@ -5,6 +5,9 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
+import pl.com.rest.model.User;
+
+import java.util.Collection;
 
 /**
  * Created by wewe on 29.05.16.
@@ -28,7 +31,8 @@ public class PlaceEntityMongo {
     @Property("otherInformation")
     private String otherInformation;
 
-
+    @Property("visitors")
+    private Collection<User> visitors;
 
 
     @Indexed
@@ -86,6 +90,9 @@ public class PlaceEntityMongo {
         this.otherInformation = otherInformation;
     }
 
+    public Collection<User> getVisitors() {
+        return visitors;
+    }
 
     public boolean isActive() {
         return active;

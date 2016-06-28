@@ -2,6 +2,10 @@ package pl.com.rest.database;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.mapping.Mapper;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import pl.com.rest.entity.UserEntityMongo;
 import pl.com.rest.model.User;
 
@@ -29,6 +33,18 @@ public class UserDatabase extends MongoDB {
         } catch (IllegalArgumentException e) {
             return null;
         }
+    }
+
+    public void updateUser(User user){
+
+        UserEntityMongo userDb = buildUserEntity(user, false);
+        Query<UserEntityMongo> updateQuery = getDatastore().createQuery(UserEntityMongo.class).field("_id").equal(new ObjectId(user.getId()));
+        UpdateOperations<UserEntityMongo> ops = getDatastore().createUpdateOperations(UserEntityMongo.class).set("name", userDb.getName()).set("email", userDb.getEmail()).set("password",userDb.getPassword())
+        .set("visitedPlaces", userDb.getVisitedPlaces());
+        final UpdateResults results = getDatastore().update(updateQuery, ops);
+        System.out.println(results.getWriteResult());
+
+
     }
 
     public void deleteUser(String id){
@@ -60,7 +76,7 @@ public class UserDatabase extends MongoDB {
     }
 
     private UserEntityMongo buildUserEntity(User user, boolean active){
-        return new UserEntityMongo(user.getName(), user.getEmail(), user.getPassword(), active);
+        return new UserEntityMongo(user.getName(), user.getEmail(), user.getPassword(), user.getVisitedPlaces(), active);
     }
 
 }

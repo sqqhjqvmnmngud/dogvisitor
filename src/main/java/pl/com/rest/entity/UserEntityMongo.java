@@ -1,6 +1,5 @@
 package pl.com.rest.entity;
 
-import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 import org.slf4j.Logger;
@@ -8,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import pl.com.rest.model.Dog;
 import pl.com.rest.model.Place;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +22,8 @@ public class UserEntityMongo {
     @Property("name")
     private String name;
 
-    @Property("favouritePlaces")
-    private List<Place> favouritePlaces;
+    @Property("visitedPlaces")
+    private List<Place> visitedPlaces;
 
     @Property("email")
     private String email;
@@ -41,10 +39,11 @@ public class UserEntityMongo {
     public UserEntityMongo() {
     }
 
-    public UserEntityMongo(String name, String email, String password, boolean active){
+    public UserEntityMongo(String name, String email, String password, List<Place> visitedPlaces, boolean active){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.visitedPlaces = visitedPlaces;
         this.active = active;
 
     }
@@ -58,8 +57,8 @@ public class UserEntityMongo {
         return name;
     }
 
-    public List<Place> getFavouritePlaces() {
-        return favouritePlaces;
+    public List<Place> getVisitedPlaces() {
+        return visitedPlaces;
     }
 
     public boolean isActive() {

@@ -1,6 +1,7 @@
 package pl.com.rest.model;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
  * Created by wewe on 10.05.16.
@@ -17,7 +18,10 @@ public class Place {
 
     @NotNull
     private String city;
+
     private String otherInformation;
+
+    private Collection<User> visitors;
 
 
     public String getId() {
@@ -60,7 +64,9 @@ public class Place {
         this.otherInformation = otherInformation;
     }
 
-
+    public Collection<User> getVisitors() {
+        return visitors;
+    }
 
     public Place() {
     }

@@ -1,7 +1,6 @@
 package pl.com.rest.model;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -27,7 +26,7 @@ public class User {
     @NotNull
     @Min(4)
     private String password;
-    private List<Place> favouritePlaces = new ArrayList<>();
+    private List<Place> visitedPlaces = new ArrayList<>();
     private List<Dog> dogs = new ArrayList<>();
 
     public User(String id, String name, String email, String password) {
@@ -37,12 +36,12 @@ public class User {
         this.password = password;
     }
 
-    public User(String id, String name, String email, String password, List<Place> favouritePlaces, List<Dog> dogs) {
+    public User(String id, String name, String email, String password, List<Place> visitedPlaces, List<Dog> dogs) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.favouritePlaces = favouritePlaces;
+        this.visitedPlaces = visitedPlaces;
         this.dogs = dogs;
     }
 
@@ -66,12 +65,12 @@ public class User {
         this.name = name;
     }
 
-    public List<Place> getFavouritePlaces() {
-        return favouritePlaces;
+    public List<Place> getVisitedPlaces() {
+        return visitedPlaces;
     }
 
-    public void setFavouritePlaces(List<Place> favouritePlaces) {
-        this.favouritePlaces = favouritePlaces;
+    public void setVisitedPlaces(List<Place> visitedPlaces) {
+        this.visitedPlaces = visitedPlaces;
     }
 
     public String getEmail() {
