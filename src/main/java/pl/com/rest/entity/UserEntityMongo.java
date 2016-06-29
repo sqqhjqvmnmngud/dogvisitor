@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import pl.com.rest.model.Dog;
 import pl.com.rest.model.Place;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -22,8 +23,8 @@ public class UserEntityMongo {
     @Property("name")
     private String name;
 
-    @Property("visitedPlaces")
-    private List<Place> visitedPlaces;
+    @Reference("visitedPlaces")
+    private  List<Place> visitedPlaces;
 
     @Property("email")
     private String email;
@@ -31,15 +32,16 @@ public class UserEntityMongo {
     @Property("password")
     private String password;
 
-    @Property("dogs")
+    @Embedded
     private List<Dog> dogs ;
+
     private boolean active = false;
 
 
     public UserEntityMongo() {
     }
 
-    public UserEntityMongo(String name, String email, String password, List<Place> visitedPlaces, boolean active){
+    public UserEntityMongo(String name, String email, String password, List<Place>  visitedPlaces, boolean active){
         this.name = name;
         this.email = email;
         this.password = password;
@@ -57,7 +59,7 @@ public class UserEntityMongo {
         return name;
     }
 
-    public List<Place> getVisitedPlaces() {
+    public List<Place>  getVisitedPlaces() {
         return visitedPlaces;
     }
 
@@ -75,5 +77,9 @@ public class UserEntityMongo {
 
     public List<Dog> getDogs() {
         return dogs;
+    }
+
+    public void setDogs(List<Dog> dogs) {
+        this.dogs = dogs;
     }
 }

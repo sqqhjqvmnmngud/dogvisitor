@@ -11,7 +11,9 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by wewe on 29.05.16.
@@ -26,7 +28,7 @@ public class PlaceResource {
     private static final UserDatabase userDatabase = new UserDatabase();
 
     @GET
-    public Collection<Place> getPlaces(){
+    public List<Place> getPlaces(){
         return placeDatabase.getPlaces();
     }
 
@@ -42,6 +44,7 @@ public class PlaceResource {
         );
         return Response.ok(placeDatabase.createPlace(dbPlace)).build();
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{placeId}")
@@ -60,17 +63,32 @@ public class PlaceResource {
         placeDatabase.deletePlace(placeId);
     }
 
+    @PUT
+    @Path("/{placeId}")
+    public Place updatePlace(@PathParam("placeId") String placeId, Place place)  throws AppException {
+        Place dbPlace = placeDatabase.getPlace(placeId);
+        if (dbPlace == null){
+            throw new AppException(404, 990, "Place with id " + placeId + " does not exist", null, null);
+        }
+        place.setId(dbPlace.getId());
+        placeDatabase.updatePlace(place);
+        return place;
+    }
+
+
+    // is
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{placeId}/visitors")
-    public Collection<User> getVisitors(@PathParam("placeId") String placeId) throws AppException{
+    public List<User> getVisitors(@PathParam("placeId") String placeId) throws AppException{
         Place place = placeDatabase.getPlace(placeId);
         if (place == null){
             throw new AppException(404, 990, "Place with id " + placeId + " does not exist", null, null);
         }
         else{
-            Collection<User> visitors = userDatabase.getUsers();
-            for (User visitor : visitors){
+            List<User> tempVisitors = userDatabase.getUsers();
+            List<User> visitors = new ArrayList<>();
+            for (User visitor : tempVisitors){
                 if (visitor.getVisitedPlaces().contains(place))
                     visitors.add(visitor);
             }

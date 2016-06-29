@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by wewe on 10.04.16.
@@ -31,21 +32,23 @@ public class UserResource {
 
 
     @GET
-    public Collection<User> getUsers(){
+    public List<User> getUsers(){
         return database.getUsers();
     }
 
 
     @POST
-    public Response createUser(@Valid User user) {
+    public User createUser(@Valid User user) {
         User dbUser = new User(
                 "",
                 user.getName(),
                 user.getEmail(),
-                user.getPassword()
+                user.getPassword(),
+                user.getVisitedPlaces(),
+                user.getDogs()
         );
-
-        return Response.ok(database.createUser(dbUser)).build();
+        return database.createUser(dbUser);
+      //  return Response.ok(database.createUser(dbUser)).build();
 
     }
     @GET
@@ -60,10 +63,10 @@ public class UserResource {
     }
     @PUT
     @Path("/{userId}")
-    public User updateUser(@PathParam("userId") String userId, User user){
+    public User updateUser(@PathParam("userId") String userId, User user) throws AppException{
         User dbuser = database.getUser(userId);
         if (dbuser == null){
-            throw new NotFoundException();
+            throw new AppException(404, 990, "User with id " + userId + " does not exist", null, null);
         }
         user.setId(dbuser.getId());
         database.updateUser(user);

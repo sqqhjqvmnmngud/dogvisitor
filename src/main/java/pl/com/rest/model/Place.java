@@ -1,12 +1,14 @@
 package pl.com.rest.model;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by wewe on 10.05.16.
  */
-public class Place {
+public class Place implements Serializable {
     @NotNull
     private String id;
 
@@ -21,7 +23,7 @@ public class Place {
 
     private String otherInformation;
 
-    private Collection<User> visitors;
+    private List<User> visitors;
 
 
     public String getId() {
@@ -64,7 +66,7 @@ public class Place {
         this.otherInformation = otherInformation;
     }
 
-    public Collection<User> getVisitors() {
+    public List<User> getVisitors() {
         return visitors;
     }
 

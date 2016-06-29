@@ -22,6 +22,19 @@ public class JerseyConfig extends ResourceConfig{
         //register(GenericExceptionMapper.class);
         register(NotFoundExceptionMapper.class);
         register(MethodArgumentNotValidException.class);
+
+        packages("io.swagger.jaxrs.listing");
+//        BeanConfig beanConfig = new BeanConfig();
+//        beanConfig.setVersion("1.0.2");
+//        beanConfig.setSchemes(new String[]{"http"});
+//        beanConfig.setHost("localhost:8080");
+//        beanConfig.setBasePath("/");
+//        beanConfig.setResourcePackage("io.swagger.resources");
+//        beanConfig.setScan(true);
+
+
+
+
        // register(JsonMappingExceptionMapper.class);
        // register(ConstraintViolationExceptionMapper.class);
         this.property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);

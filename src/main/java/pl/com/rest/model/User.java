@@ -6,6 +6,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -26,7 +27,8 @@ public class User {
     @NotNull
     @Min(4)
     private String password;
-    private List<Place> visitedPlaces = new ArrayList<>();
+    private List<Place>  visitedPlaces;
+
     private List<Dog> dogs = new ArrayList<>();
 
     public User(String id, String name, String email, String password) {
@@ -36,7 +38,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String id, String name, String email, String password, List<Place> visitedPlaces, List<Dog> dogs) {
+    public User(String id, String name, String email, String password, List<Place>  visitedPlaces, List<Dog> dogs) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -65,11 +67,11 @@ public class User {
         this.name = name;
     }
 
-    public List<Place> getVisitedPlaces() {
+    public List<Place>  getVisitedPlaces() {
         return visitedPlaces;
     }
 
-    public void setVisitedPlaces(List<Place> visitedPlaces) {
+    public void setVisitedPlaces(List<Place>  visitedPlaces) {
         this.visitedPlaces = visitedPlaces;
     }
 

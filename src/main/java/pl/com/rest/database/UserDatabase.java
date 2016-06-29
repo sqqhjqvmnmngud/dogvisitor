@@ -2,15 +2,16 @@ package pl.com.rest.database;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
-import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
+import pl.com.rest.builder.UserBuilder;
+import pl.com.rest.builder.UserEntityMongoBuilder;
 import pl.com.rest.entity.UserEntityMongo;
 import pl.com.rest.model.User;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by wewe on 29.05.16.
@@ -26,7 +27,7 @@ public class UserDatabase extends MongoDB {
                     .get();
 
             if (userEntity != null) {
-                return buildUserResponse(userEntity);
+                return UserBuilder.build(userEntity);
             }
 
             return null;
@@ -37,7 +38,7 @@ public class UserDatabase extends MongoDB {
 
     public void updateUser(User user){
 
-        UserEntityMongo userDb = buildUserEntity(user, false);
+        UserEntityMongo userDb = UserEntityMongoBuilder.build(user, false);
         Query<UserEntityMongo> updateQuery = getDatastore().createQuery(UserEntityMongo.class).field("_id").equal(new ObjectId(user.getId()));
         UpdateOperations<UserEntityMongo> ops = getDatastore().createUpdateOperations(UserEntityMongo.class).set("name", userDb.getName()).set("email", userDb.getEmail()).set("password",userDb.getPassword())
         .set("visitedPlaces", userDb.getVisitedPlaces());
@@ -51,32 +52,21 @@ public class UserDatabase extends MongoDB {
         getDatastore().delete(UserEntityMongo.class,new ObjectId(id));
     }
     public User createUser(User user) {
-        UserEntityMongo userEntity = buildUserEntity(user,false);
+        UserEntityMongo userEntity = UserEntityMongoBuilder.build(user, false);
+        userEntity.setDogs(user.getDogs());
         Key<UserEntityMongo> userEntityMongoKey = getDatastore()
                 .save(userEntity);
-        return buildUserResponse(userEntity, userEntityMongoKey.getId());
+        return UserBuilder.build(userEntity, userEntityMongoKey.getId());
 
     }
 
-    public Collection<User> getUsers(){
-        Collection<User> lists = new ArrayList<>();
+    public List<User> getUsers(){
+        List<User> lists = new ArrayList<>();
         for (UserEntityMongo userEntity: getDatastore().find(UserEntityMongo.class)){
-            lists.add(buildUserResponse(userEntity));
+            lists.add(UserBuilder.build(userEntity));
         }
         return lists;
     }
 
-    private User buildUserResponse(UserEntityMongo userEntity, Object id){
-        return new User(id.toString(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword());
-
-    }
-    private User buildUserResponse(UserEntityMongo userEntity){
-        return new User(userEntity.getId().toString(), userEntity.getName(),userEntity.getEmail(), userEntity.getPassword());
-
-    }
-
-    private UserEntityMongo buildUserEntity(User user, boolean active){
-        return new UserEntityMongo(user.getName(), user.getEmail(), user.getPassword(), user.getVisitedPlaces(), active);
-    }
 
 }

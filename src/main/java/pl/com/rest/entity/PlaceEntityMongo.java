@@ -1,13 +1,11 @@
 package pl.com.rest.entity;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.*;
 import pl.com.rest.model.User;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by wewe on 29.05.16.
@@ -31,8 +29,8 @@ public class PlaceEntityMongo {
     @Property("otherInformation")
     private String otherInformation;
 
-    @Property("visitors")
-    private Collection<User> visitors;
+    @Reference
+    private List<User> visitors;
 
 
     @Indexed
@@ -42,11 +40,12 @@ public class PlaceEntityMongo {
     public PlaceEntityMongo() {
     }
 
-    public PlaceEntityMongo(String name, String address, String city, String otherInformation, boolean active) {
+    public PlaceEntityMongo(String name, String address, String city, String otherInformation, List<User> visitors, boolean active) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.otherInformation = otherInformation;
+        this.visitors = visitors;
         this.active = active;
     }
 
@@ -90,7 +89,7 @@ public class PlaceEntityMongo {
         this.otherInformation = otherInformation;
     }
 
-    public Collection<User> getVisitors() {
+    public List<User> getVisitors() {
         return visitors;
     }
 
