@@ -35,10 +35,6 @@ public class JerseyConfig extends ResourceConfig{
         beanConfig.setResourcePackage("pl.com.rest");
         beanConfig.setScan(true);
 
-
-
-       // register(JsonMappingExceptionMapper.class);
-       // register(ConstraintViolationExceptionMapper.class);
         this.property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
         this.property(ServerProperties.BV_DISABLE_VALIDATE_ON_EXECUTABLE_OVERRIDE_CHECK, true);
 

@@ -58,7 +58,7 @@ public class PlaceDatabase extends MongoDB {
         PlaceEntityMongo placeDb = PlaceEntityMongoBuilder.build(place, false);
         Query<PlaceEntityMongo> updateQuery = getDatastore().createQuery(PlaceEntityMongo.class).field("_id").equal(new ObjectId(place.getId()));
         UpdateOperations<PlaceEntityMongo> ops = getDatastore().createUpdateOperations(PlaceEntityMongo.class).set("name", placeDb.getName()).set("address", placeDb.getAddress()).set("city", placeDb.getCity())
-                .set("visitors", placeDb.getOtherInformation()).set("otherInformation", placeDb.getOtherInformation());
+                .set("otherInformation", placeDb.getOtherInformation());
         final UpdateResults results = getDatastore().update(updateQuery, ops);
         System.out.println(results.getWriteResult());
 

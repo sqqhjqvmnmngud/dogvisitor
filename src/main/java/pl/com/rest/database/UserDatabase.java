@@ -41,12 +41,32 @@ public class UserDatabase extends MongoDB {
         UserEntityMongo userDb = UserEntityMongoBuilder.build(user, false);
         Query<UserEntityMongo> updateQuery = getDatastore().createQuery(UserEntityMongo.class).field("_id").equal(new ObjectId(user.getId()));
         UpdateOperations<UserEntityMongo> ops = getDatastore().createUpdateOperations(UserEntityMongo.class).set("name", userDb.getName()).set("email", userDb.getEmail()).set("password",userDb.getPassword())
-        .set("visitedPlaces", userDb.getVisitedPlaces());
-        final UpdateResults results = getDatastore().update(updateQuery, ops);
-        System.out.println(results.getWriteResult());
-
+        .set("visitedPlaces", userDb.getVisitedPlaces()).set("dogs",userDb.getDogs());
+        getDatastore().update(updateQuery, ops);
 
     }
+
+    public void updateDogUser(User user){
+
+        UserEntityMongo userDb = UserEntityMongoBuilder.build(user, false);
+        Query<UserEntityMongo> updateQuery = getDatastore().createQuery(UserEntityMongo.class).field("_id").equal(new ObjectId(user.getId()));
+        UpdateOperations<UserEntityMongo> ops = getDatastore().createUpdateOperations(UserEntityMongo.class).set("dogs",userDb.getDogs());
+        getDatastore().update(updateQuery, ops);
+
+    }
+
+    public void updatePlaceUser(User user){
+
+        UserEntityMongo userDb = UserEntityMongoBuilder.build(user, false);
+        Query<UserEntityMongo> updateQuery = getDatastore().createQuery(UserEntityMongo.class).field("_id").equal(new ObjectId(user.getId()));
+        UpdateOperations<UserEntityMongo> ops = getDatastore().createUpdateOperations(UserEntityMongo.class).set("visitedPlaces", userDb.getVisitedPlaces());
+        getDatastore().update(updateQuery, ops);
+
+    }
+
+
+
+
 
     public void deleteUser(String id){
         getDatastore().delete(UserEntityMongo.class,new ObjectId(id));

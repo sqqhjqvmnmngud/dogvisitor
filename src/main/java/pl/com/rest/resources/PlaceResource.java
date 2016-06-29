@@ -2,6 +2,9 @@ package pl.com.rest.resources;
 
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import pl.com.rest.database.PlaceDatabase;
 import pl.com.rest.database.UserDatabase;
 import pl.com.rest.exception.AppException;
@@ -29,11 +32,16 @@ public class PlaceResource {
     private static final UserDatabase userDatabase = new UserDatabase();
 
     @GET
+    @ApiOperation(value = "See all available places",
+            response = Place.class,
+            responseContainer = "List")
     public List<Place> getPlaces(){
         return placeDatabase.getPlaces();
     }
 
     @POST
+    @ApiOperation(value = "Add new place",
+            response = Place.class)
     public Response createPlace(@Valid Place place){
         Place dbPlace = new Place(
                 "",
@@ -49,6 +57,8 @@ public class PlaceResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{placeId}")
+    @ApiOperation(value = "Get one place identified by id",
+            response = Place.class)
     public Place getPlace(@PathParam("placeId") String placeId) throws AppException {
         Place place = placeDatabase.getPlace(placeId);
         if (place == null){
@@ -60,12 +70,25 @@ public class PlaceResource {
 
     @DELETE
     @Path("/{placeId}")
-    public void deletePlace(@PathParam("placeId") String placeId) {
+    @ApiOperation(value = "Delete place identified by id")
+    @ApiResponses( value = {
+            @ApiResponse(code = 404, message = "Place not found"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
+    public void deletePlace(@PathParam("placeId") String placeId)throws AppException  {
+        if (placeDatabase.getPlace(placeId) == null){
+            throw new AppException(404, 990, "Place with id " + placeId + " does not exist", null, null);
+        }
         placeDatabase.deletePlace(placeId);
     }
 
     @PUT
     @Path("/{placeId}")
+    @ApiOperation(value = "Update exiting place identified by id")
+    @ApiResponses( value = {
+            @ApiResponse(code = 404, message = "Place not found"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
     public Place updatePlace(@PathParam("placeId") String placeId, Place place)  throws AppException {
         Place dbPlace = placeDatabase.getPlace(placeId);
         if (dbPlace == null){
@@ -79,6 +102,13 @@ public class PlaceResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{placeId}/visitors")
+    @ApiOperation(value = "Show users, who visited this place identified by id",
+            response = User.class,
+            responseContainer = "List")
+    @ApiResponses( value = {
+            @ApiResponse(code = 404, message = "Place not found"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
     public List<User> getVisitors(@PathParam("placeId") String placeId) throws AppException{
         Place place = placeDatabase.getPlace(placeId);
         if (place == null){

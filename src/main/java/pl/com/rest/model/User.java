@@ -25,7 +25,6 @@ public class User {
     private String email;
 
     @NotNull
-    @Min(4)
     private String password;
     private List<Place>  visitedPlaces;
 
@@ -87,11 +86,54 @@ public class User {
         return dogs;
     }
 
+    public void setDogs(List<Dog> dogs) {
+        this.dogs = dogs;
+    }
+
     public boolean placeIsVistied(Place place){
         for(Place p : this.visitedPlaces){
-            if(p.getId().contentEquals(place.getId()));
+            if(p.getId().contentEquals(place.getId()))
             return true;
         }
         return false;
+    }
+    public boolean deleteVisitedPlace(String placeId){
+        int index=-1;
+        for(Place p : this.visitedPlaces){
+            if (p.getId().contentEquals(placeId)){
+                index = visitedPlaces.indexOf(p);
+            }
+        }
+        if(index!= -1){
+            visitedPlaces.remove(index);
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean deleteDog(String dogName){
+
+        int index = isDogExist(dogName);
+        if(index!= -1){
+            dogs.remove(index);
+            return true;
+        }
+        else return false;
+    }
+
+    public int isDogExist(String dogName){
+        for(Dog dog : this.dogs){
+            if (dog.getName().contentEquals(dogName)){
+                return dogs.indexOf(dog);
+            }
+        }
+        return -1;
+    }
+
+    public void updateDog(Dog dog){
+        int index = isDogExist(dog.getName());
+        dogs.remove(index);
+        dogs.add(dog);
+
     }
 }

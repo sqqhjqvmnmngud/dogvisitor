@@ -23,7 +23,7 @@ public class UserEntityMongoBuilder {
         }
 
 
-        return new UserEntityMongo(user.getName(), user.getEmail(), user.getPassword(), placeEntityList, active);
+        return new UserEntityMongo(user.getName(), user.getEmail(), user.getPassword(), placeEntityList, user.getDogs(), active);
     }
 
 }

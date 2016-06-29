@@ -1,5 +1,6 @@
 package pl.com.rest.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.mongodb.morphia.annotations.Embedded;
 
 import javax.validation.constraints.NotNull;
@@ -9,9 +10,10 @@ import java.io.Serializable;
  * Created by wewe on 24.06.16.
  */
 @Embedded
-public class Dog {
+public class Dog implements Serializable {
 
     @NotNull
+    @NotEmpty
     private String name;
     private String breed;
     private String additionalInformation;

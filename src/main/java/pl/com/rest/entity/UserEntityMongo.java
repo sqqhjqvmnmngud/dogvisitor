@@ -42,11 +42,12 @@ public class UserEntityMongo {
     public UserEntityMongo() {
     }
 
-    public UserEntityMongo(String name, String email, String password, List<PlaceEntityMongo>  visitedPlaces, boolean active){
+    public UserEntityMongo(String name, String email, String password, List<PlaceEntityMongo>  visitedPlaces, List<Dog> dogs ,boolean active){
         this.name = name;
         this.email = email;
         this.password = password;
         this.visitedPlaces = visitedPlaces;
+        this.dogs = dogs;
         this.active = active;
 
     }
