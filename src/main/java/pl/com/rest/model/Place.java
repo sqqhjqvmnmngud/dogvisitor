@@ -9,7 +9,7 @@ import java.util.List;
  * Created by wewe on 10.05.16.
  */
 public class Place implements Serializable {
-    @NotNull
+
     private String id;
 
     @NotNull
@@ -22,8 +22,6 @@ public class Place implements Serializable {
     private String city;
 
     private String otherInformation;
-
-    private List<User> visitors;
 
 
     public String getId() {
@@ -66,9 +64,6 @@ public class Place implements Serializable {
         this.otherInformation = otherInformation;
     }
 
-    public List<User> getVisitors() {
-        return visitors;
-    }
 
     public Place() {
     }

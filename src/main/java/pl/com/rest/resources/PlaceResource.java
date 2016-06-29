@@ -1,6 +1,7 @@
 package pl.com.rest.resources;
 
 
+import io.swagger.annotations.Api;
 import pl.com.rest.database.PlaceDatabase;
 import pl.com.rest.database.UserDatabase;
 import pl.com.rest.exception.AppException;
@@ -12,7 +13,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 @Path("/places")
+@Api(value = "places")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PlaceResource {
@@ -74,8 +75,6 @@ public class PlaceResource {
         placeDatabase.updatePlace(place);
         return place;
     }
-
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

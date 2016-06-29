@@ -1,44 +1,41 @@
 package pl.com.rest.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import pl.com.rest.database.MongoDB;
+import io.swagger.annotations.*;
 import pl.com.rest.database.UserDatabase;
 import pl.com.rest.exception.AppException;
+import pl.com.rest.exception.MethodArgumentNotValidExceptionMapper;
 import pl.com.rest.model.User;
 
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by wewe on 10.04.16.
  */
 @Path("/users")
+@Api(value = "/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
 
-
     private static final UserDatabase database = new UserDatabase();
 
-
     @GET
+    @ApiOperation(value = "See all available users", notes = "",
+            response = User.class,
+            responseContainer = "List")
     public List<User> getUsers(){
         return database.getUsers();
     }
 
 
     @POST
-    public User createUser(@Valid User user) {
+    @ApiOperation(value = "Add new user", notes = "You can provide dog and existing visited places",
+            response = User.class)
+    public User createUser(@Valid User user)  {
         User dbUser = new User(
                 "",
                 user.getName(),
@@ -48,12 +45,17 @@ public class UserResource {
                 user.getDogs()
         );
         return database.createUser(dbUser);
-      //  return Response.ok(database.createUser(dbUser)).build();
+
 
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{userId}")
+    @ApiOperation(value = "Get one user identified by id", notes = " ",
+            response = User.class)
+    @ApiResponses( value = {
+            @ApiResponse(code = 404, message = "User not found")
+    })
     public User getUser(@PathParam("userId") String userId) throws AppException {
         User user = database.getUser(userId);
         if (user == null){
@@ -63,7 +65,11 @@ public class UserResource {
     }
     @PUT
     @Path("/{userId}")
-    public User updateUser(@PathParam("userId") String userId, User user) throws AppException{
+    @ApiResponses( value = {
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    public User updateUser(
+            @ApiParam (value = "Id of user to fetch", required = true)@PathParam("userId") String userId, User user) throws AppException{
         User dbuser = database.getUser(userId);
         if (dbuser == null){
             throw new AppException(404, 990, "User with id " + userId + " does not exist", null, null);
@@ -75,10 +81,16 @@ public class UserResource {
 
     @DELETE
     @Path("/{userId}")
-    public void deleteUser(@PathParam("userId") String userId){
+    @ApiOperation(value = "Delete user identified by id")
+    @ApiResponses( value = {
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    public void deleteUser(@PathParam("userId") String userId)throws AppException{
+        User dbuser = database.getUser(userId);
+        if (dbuser == null){
+            throw new AppException(404, 990, "User with id " + userId + " does not exist", null, null);
+        }
         database.deleteUser(userId);
-        //TODO EXCEPTIONS
-
-    }
+     }
 
 }

@@ -14,8 +14,10 @@ import java.util.List;
 public class UserBuilder {
     public static User build(UserEntityMongo userEntity, Object id){
         List<Place> placeList = new ArrayList<>();
-        for( PlaceEntityMongo placeEntityMongo: userEntity.getVisitedPlaces()){
-            placeList.add(PlaceBuilder.build(placeEntityMongo));
+        if (userEntity.getVisitedPlaces() != null){
+            for( PlaceEntityMongo placeEntityMongo: userEntity.getVisitedPlaces()){
+                placeList.add(PlaceBuilder.build(placeEntityMongo));
+            }
         }
 
         return new User(id.toString(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword(), placeList, userEntity.getDogs());
@@ -23,8 +25,10 @@ public class UserBuilder {
 
     public static User build(UserEntityMongo userEntity){
         List<Place> placeList = new ArrayList<>();
-        for( PlaceEntityMongo placeEntityMongo: userEntity.getVisitedPlaces()){
-            placeList.add(PlaceBuilder.build(placeEntityMongo));
+        if (userEntity.getVisitedPlaces() != null) {
+            for (PlaceEntityMongo placeEntityMongo : userEntity.getVisitedPlaces()) {
+                placeList.add(PlaceBuilder.build(placeEntityMongo));
+            }
         }
 
         return new User(userEntity.getId().toString(), userEntity.getName(),userEntity.getEmail(), userEntity.getPassword(), placeList, userEntity.getDogs());

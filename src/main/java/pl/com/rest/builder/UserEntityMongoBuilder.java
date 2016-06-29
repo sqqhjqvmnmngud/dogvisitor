@@ -15,8 +15,11 @@ public class UserEntityMongoBuilder {
 
     public static  UserEntityMongo build(User user, boolean active){
         List<PlaceEntityMongo> placeEntityList = new ArrayList<>();
-        for( Place place: user.getVisitedPlaces()){
-            placeEntityList.add(PlaceEntityMongoBuilder.buildWithId(place,false));
+        if (user.getVisitedPlaces() != null){
+
+            for( Place place: user.getVisitedPlaces()){
+                placeEntityList.add(PlaceEntityMongoBuilder.buildWithId(place,false));
+            }
         }
 
 

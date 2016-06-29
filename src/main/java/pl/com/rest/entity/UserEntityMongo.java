@@ -1,5 +1,6 @@
 package pl.com.rest.entity;
 
+import io.swagger.annotations.Api;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 import org.slf4j.Logger;
@@ -13,9 +14,9 @@ import java.util.List;
 /**
  * Created by wewe on 28.05.16.
  */
+
 @Entity("users")
 public class UserEntityMongo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserEntityMongo.class);
 
     @Id
     ObjectId id;

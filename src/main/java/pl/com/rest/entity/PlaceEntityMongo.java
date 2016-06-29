@@ -29,9 +29,6 @@ public class PlaceEntityMongo {
     @Property("otherInformation")
     private String otherInformation;
 
-    @Reference
-    private List<UserEntityMongo> visitors;
-
 
     @Indexed
     private boolean active = false;
@@ -40,21 +37,19 @@ public class PlaceEntityMongo {
     public PlaceEntityMongo() {
     }
 
-    public PlaceEntityMongo(String name, String address, String city, String otherInformation, List<UserEntityMongo> visitors, boolean active) {
+    public PlaceEntityMongo(String name, String address, String city, String otherInformation,  boolean active) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.otherInformation = otherInformation;
-        this.visitors = visitors;
         this.active = active;
     }
 
-    public PlaceEntityMongo(String id, String name, String address, String city, String otherInformation, List<UserEntityMongo> visitors, boolean active) {
+    public PlaceEntityMongo(String id, String name, String address, String city, String otherInformation,  boolean active) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.otherInformation = otherInformation;
-        this.visitors = visitors;
         this.active = active;
         this.id = new ObjectId(id);
     }
@@ -100,10 +95,6 @@ public class PlaceEntityMongo {
 
     public void setOtherInformation(String otherInformation) {
         this.otherInformation = otherInformation;
-    }
-
-    public List<UserEntityMongo> getVisitors() {
-        return visitors;
     }
 
     public boolean isActive() {

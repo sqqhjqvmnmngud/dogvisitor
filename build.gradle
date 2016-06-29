@@ -29,10 +29,8 @@ repositories {
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-jersey'
     compile 'org.mongodb.morphia:morphia:1.1.1'
-	// https://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-bean-validation
 	compile("org.hibernate:hibernate-validator")
 	compile('io.swagger:swagger-jersey2-jaxrs:1.5.0')
-
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

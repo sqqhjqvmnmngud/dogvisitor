@@ -2,6 +2,7 @@ package pl.com.rest.model;
 
 import org.mongodb.morphia.annotations.Embedded;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @Embedded
 public class Dog {
 
+    @NotNull
     private String name;
     private String breed;
     private String additionalInformation;
