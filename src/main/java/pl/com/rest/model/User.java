@@ -86,4 +86,12 @@ public class User {
     public List<Dog> getDogs() {
         return dogs;
     }
+
+    public boolean placeIsVistied(Place place){
+        for(Place p : this.visitedPlaces){
+            if(p.getId().contentEquals(place.getId()));
+            return true;
+        }
+        return false;
+    }
 }

@@ -76,7 +76,7 @@ public class PlaceResource {
     }
 
 
-    // is
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{placeId}/visitors")
@@ -89,34 +89,16 @@ public class PlaceResource {
             List<User> tempVisitors = userDatabase.getUsers();
             List<User> visitors = new ArrayList<>();
             for (User visitor : tempVisitors){
-                if (visitor.getVisitedPlaces().contains(place))
+                if (visitor.placeIsVistied(place)){
+
                     visitors.add(visitor);
+                }
             }
 
             return visitors;
         }
     }
 
-    @POST
-    @Path("/{placeId}/visitors")
-    public boolean setVisitors(@PathParam("placeId") String placeId, @QueryParam("userId") String userId) throws AppException{
-        Place place = placeDatabase.getPlace(placeId);
-        if (place == null){
-            throw new AppException(404, 990, "Place with id " + placeId + " does not exist", null, null);
-        }
-
-        User visitor = userDatabase.getUser(userId);
-        if (visitor == null){
-            throw new AppException(404, 990, "User with id " + userId + " does not exist", null, null);
-        }
-        visitor.setId(userId);
-        if(visitor.getVisitedPlaces().contains(place)) throw new AppException(409, 999, "Visitor with id " + visitor.getId() + "has already this place in his lists", null, null);
-        visitor.getVisitedPlaces().add(place);
-       //update user
-        userDatabase.updateUser(visitor);
-        return true;
-
-    }
 
 
 

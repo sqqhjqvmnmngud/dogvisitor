@@ -53,7 +53,7 @@ public class UserDatabase extends MongoDB {
     }
     public User createUser(User user) {
         UserEntityMongo userEntity = UserEntityMongoBuilder.build(user, false);
-        userEntity.setDogs(user.getDogs());
+        if(user.getDogs()!= null) userEntity.setDogs(user.getDogs());
         Key<UserEntityMongo> userEntityMongoKey = getDatastore()
                 .save(userEntity);
         return UserBuilder.build(userEntity, userEntityMongoKey.getId());

@@ -24,7 +24,7 @@ public class UserEntityMongo {
     private String name;
 
     @Reference("visitedPlaces")
-    private  List<Place> visitedPlaces;
+    private  List<PlaceEntityMongo> visitedPlaces;
 
     @Property("email")
     private String email;
@@ -41,7 +41,7 @@ public class UserEntityMongo {
     public UserEntityMongo() {
     }
 
-    public UserEntityMongo(String name, String email, String password, List<Place>  visitedPlaces, boolean active){
+    public UserEntityMongo(String name, String email, String password, List<PlaceEntityMongo>  visitedPlaces, boolean active){
         this.name = name;
         this.email = email;
         this.password = password;
@@ -59,7 +59,7 @@ public class UserEntityMongo {
         return name;
     }
 
-    public List<Place>  getVisitedPlaces() {
+    public List<PlaceEntityMongo>  getVisitedPlaces() {
         return visitedPlaces;
     }
 

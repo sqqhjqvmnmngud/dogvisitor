@@ -30,7 +30,7 @@ public class PlaceEntityMongo {
     private String otherInformation;
 
     @Reference
-    private List<User> visitors;
+    private List<UserEntityMongo> visitors;
 
 
     @Indexed
@@ -40,7 +40,7 @@ public class PlaceEntityMongo {
     public PlaceEntityMongo() {
     }
 
-    public PlaceEntityMongo(String name, String address, String city, String otherInformation, List<User> visitors, boolean active) {
+    public PlaceEntityMongo(String name, String address, String city, String otherInformation, List<UserEntityMongo> visitors, boolean active) {
         this.name = name;
         this.address = address;
         this.city = city;
@@ -48,6 +48,19 @@ public class PlaceEntityMongo {
         this.visitors = visitors;
         this.active = active;
     }
+
+    public PlaceEntityMongo(String id, String name, String address, String city, String otherInformation, List<UserEntityMongo> visitors, boolean active) {
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.otherInformation = otherInformation;
+        this.visitors = visitors;
+        this.active = active;
+        this.id = new ObjectId(id);
+    }
+
+
+
 
     public ObjectId getId() {
         return id;
@@ -89,7 +102,7 @@ public class PlaceEntityMongo {
         this.otherInformation = otherInformation;
     }
 
-    public List<User> getVisitors() {
+    public List<UserEntityMongo> getVisitors() {
         return visitors;
     }
 
