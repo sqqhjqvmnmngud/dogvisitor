@@ -5,9 +5,9 @@ package pl.com.rest.database;
  */
 public class DatabaseConstant {
 
-    public static final String HOST = "ds011923.mlab.com";
-    public static final int PORT = 11923;
+    public static final String HOST = "localhost";
+    public static final int PORT = 27017;
     public static final String DATABASE = "dogvisitor";
-    public static final String USER_NAME = "test";
-    public static final String PASSWORD = "qwe";
+    public static final String USER_NAME = "dog";
+    public static final String PASSWORD = "cat";
 }
