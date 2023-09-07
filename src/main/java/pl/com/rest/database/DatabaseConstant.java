@@ -5,12 +5,6 @@ package pl.com.rest.database;
  */
 public class DatabaseConstant {
 
-    // public static final String HOST = "172.17.0.1";
-    // public static final int PORT = 27017;
-    // public static final String DATABASE = "dogvisitor";
-    // public static final String USER_NAME = "dog";
-    // public static final String PASSWORD = "cat";
-
     public static final String HOST = System.getenv("DB_HOST");
     public static final int PORT = Integer.parseInt(System.getenv("DB_PORT"));
     public static final String DATABASE = System.getenv("DB_NAME");
